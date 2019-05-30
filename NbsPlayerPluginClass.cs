@@ -29,7 +29,7 @@ namespace NbsPlayerPlugin
 
                     try
                     {
-                        task.Position = (int)((this.server.TotalTicks - task.TickStart) + task.NBS.Delay) / 2;
+                        task.Position = (int)(this.server.TotalTicks - task.TickStart + task.NBS.Delay) / 2;
 
                         //await task.Client.SendChatAsync("position: " + task.Position, 2);
 
