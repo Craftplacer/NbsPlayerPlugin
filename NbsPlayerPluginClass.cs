@@ -62,7 +62,7 @@ namespace NbsPlayerPlugin
                 "Craftplacer (Obsidian Team)",
                 "0.1",
                 "Plays back .NBS files stored on this server",
-                "https://github.com/NaamloosDT/Obsidian"
+                "https://github.com/Craftplacer/NbsPlayerPlugin"
             );
         }
     }
