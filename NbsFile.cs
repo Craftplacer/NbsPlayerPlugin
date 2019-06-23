@@ -10,6 +10,6 @@ namespace NbsPlayerPlugin
         public string SongAuthor { get; internal set; }
         public string SongName { get; internal set; }
         public float Speed => Tempo / 100f;
-        public short Tempo { get; internal set; }
+        public float Tempo { get; internal set; }
     }
 }

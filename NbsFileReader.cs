@@ -21,7 +21,7 @@ namespace NbsPlayerPlugin
             nbsFile.SongAuthor = binaryReader.ReadNbsString();
             nbsFile.OriginalSongAuthor = binaryReader.ReadNbsString();
             nbsFile.Description = binaryReader.ReadNbsString();
-            nbsFile.Tempo = binaryReader.ReadInt16();
+            nbsFile.Tempo = binaryReader.ReadInt16() / 100f;
             _ = binaryReader.ReadByte(); //Refer to original NbsReader for fields/properties
             _ = binaryReader.ReadByte();
             _ = binaryReader.ReadByte();
