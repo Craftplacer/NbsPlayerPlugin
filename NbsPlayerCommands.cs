@@ -32,22 +32,22 @@ namespace NbsPlayerPlugin
             {
                 string songName = songNameSpecified ? nbsFile.SongName : "Unknown";
                 string songAuthor = songAuthorSpecified ? nbsFile.OriginalSongAuthor : "Unknown";
-                await Context.Client.SendChatAsync($"{Constants.Prefix}Playing {songAuthor} - {songName}");
+                await Context.Player.SendMessageAsync($"{Constants.Prefix}Playing {songAuthor} - {songName}");
             }
             else
             {
-                await Context.Client.SendChatAsync($"{Constants.Prefix}Playing {song}");
+                await Context.Player.SendMessageAsync($"{Constants.Prefix}Playing {song}");
             }
 
             PlayerTask task;
 
             if (NbsPlayerPluginClass.Config.UseServerTicks)
             {
-                task = new PlayerTask(nbsFile, Context.Client, Context.Server.TotalTicks);
+                task = new PlayerTask(nbsFile, Context.Player, Context.Server.TotalTicks);
             }
             else
             {
-                task = new PlayerTask(nbsFile, Context.Client, DateTime.Now);
+                task = new PlayerTask(nbsFile, Context.Player, DateTime.Now);
             }
 
             NbsPlayerPluginClass.Tasks.Add(task);
@@ -60,11 +60,11 @@ namespace NbsPlayerPlugin
             try
             {
                 await NbsPlayerPluginClass.StopTaskAsync(Context.Player.Username);
-                await Context.Client.SendChatAsync($"{Constants.Prefix}Stopped playing");
+                await Context.Player.SendMessageAsync($"{Constants.Prefix}Stopped playing");
             }
             catch
             {
-                await Context.Client.SendChatAsync($"{Constants.Prefix}You aren't playing a song right now.");
+                await Context.Player.SendMessageAsync($"{Constants.Prefix}You aren't playing a song right now.");
             }
         }
 
@@ -75,18 +75,18 @@ namespace NbsPlayerPlugin
             switch (mode.ToLowerInvariant())
             {
                 default:
-                    await Context.Client.SendChatAsync("§c/nbspp mode [tick|timer]");
+                    await Context.Player.SendMessageAsync("§c/nbspp mode [tick|timer]");
                     break;
 
                 case "tick":
                 case "ticks":
                     NbsPlayerPluginClass.Config.UseServerTicks = true;
-                    await Context.Client.SendChatAsync("§aTiming method set to server ticks");
+                    await Context.Player.SendMessageAsync("§aTiming method set to server ticks");
                     break;
 
                 case "timer":
                     NbsPlayerPluginClass.Config.UseServerTicks = false;
-                    await Context.Client.SendChatAsync("§aTiming method set to timers");
+                    await Context.Player.SendMessageAsync("§aTiming method set to timers");
                     break;
             }
         }
