@@ -2,20 +2,20 @@
 {
     public static class Constants
     {
-        public const string Prefix = "[NBSPP] ";
+        public const string Prefix = "§a";
 
-        public static readonly int[] InstrumentValues = new int[]
+        public static readonly string[] InstrumentValues = new string[]
         {
-            106, //dirt, harp
-            101, //wood, bass / double bass
-            100,
-            109, //sand, snare
-            107, //glass, click / hat
-            105, //wool, guitar
-            104, //clay, flute
-            102, //gold block, bell
-            103, //packed ice, chime
-            110, //bone block, xylophone
+            "block.note_block.harp", //dirt, harp
+            "block.note_block.basedrum",
+            "block.note_block.bass", //wood, bass / double bass
+            "block.note_block.snare", //sand, snare
+            "block.note_block.hat", //glass, click / hat
+            "block.note_block.guitar", //wool, guitar
+            "block.note_block.flute", //clay, flute
+            "block.note_block.bell", //gold block, bell
+            "block.note_block.chime", //packed ice, chime
+            "block.note_block.xylophone", //bone block, xylophone
             //108, //???, pling
         };
 

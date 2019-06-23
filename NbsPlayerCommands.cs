@@ -1,7 +1,9 @@
 ﻿using Obsidian.Commands;
 using Obsidian.Entities;
 using Qmmands;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace NbsPlayerPlugin
@@ -15,23 +17,40 @@ namespace NbsPlayerPlugin
         [Description("Plays back the specified song.")]
         public async Task PlayAsync([Remainder]string song)
         {
-            NbsFile nbsFile = NbsFileReader.ReadNbsFile(song);
+            if (!song.EndsWith(".nbs", StringComparison.InvariantCultureIgnoreCase))
+            {
+                song += ".nbs";
+            }
+
+            string path = Path.Combine(Context.Server.Path, "songs", song);
+            NbsFile nbsFile = NbsFileReader.ReadNbsFile(path);
 
             bool songNameSpecified = !string.IsNullOrWhiteSpace(nbsFile.SongName);
             bool songAuthorSpecified = !string.IsNullOrWhiteSpace(nbsFile.OriginalSongAuthor);
 
             if (songNameSpecified || songAuthorSpecified)
             {
-                string songName = songNameSpecified ? "Unknown" : nbsFile.SongName;
-                string songAuthor = songAuthorSpecified  ? "Unknown" : nbsFile.OriginalSongAuthor;
-                await Context.Client.SendChatAsync($"{Constants.Prefix} Playing {songAuthor} - {songName}");
+                string songName = songNameSpecified ? nbsFile.SongName : "Unknown";
+                string songAuthor = songAuthorSpecified ? nbsFile.OriginalSongAuthor : "Unknown";
+                await Context.Client.SendChatAsync($"{Constants.Prefix}Playing {songAuthor} - {songName}");
             }
             else
             {
-                await Context.Client.SendChatAsync($"{Constants.Prefix} Playing {song}");
+                await Context.Client.SendChatAsync($"{Constants.Prefix}Playing {song}");
             }
-            
-            NbsPlayerPluginClass.Tasks.Add(new PlayerTask(nbsFile, Context.Client, Context.Server.TotalTicks));
+
+            PlayerTask task;
+
+            if (NbsPlayerPluginClass.Config.UseServerTicks)
+            {
+                task = new PlayerTask(nbsFile, Context.Client, Context.Server.TotalTicks);
+            }
+            else
+            {
+                task = new PlayerTask(nbsFile, Context.Client, DateTime.Now);
+            }
+
+            NbsPlayerPluginClass.Tasks.Add(task);
         }
 
         [Command("stop")]
@@ -40,12 +59,35 @@ namespace NbsPlayerPlugin
         {
             try
             {
-                NbsPlayerPluginClass.StopTask(Context.Player.Username);
-                await Context.Client.SendChatAsync($"{Constants.Prefix} Stopped playing");
+                await NbsPlayerPluginClass.StopTaskAsync(Context.Player.Username);
+                await Context.Client.SendChatAsync($"{Constants.Prefix}Stopped playing");
             }
             catch
             {
-                await Context.Client.SendChatAsync($"{Constants.Prefix} You aren't playing a song right now.");
+                await Context.Client.SendChatAsync($"{Constants.Prefix}You aren't playing a song right now.");
+            }
+        }
+
+        [Command("mode")]
+        [RequireOperator]
+        public async Task SetModeAsync(string mode)
+        {
+            switch (mode.ToLowerInvariant())
+            {
+                default:
+                    await Context.Client.SendChatAsync("§c/nbspp mode [tick|timer]");
+                    break;
+
+                case "tick":
+                case "ticks":
+                    NbsPlayerPluginClass.Config.UseServerTicks = true;
+                    await Context.Client.SendChatAsync("§aTiming method set to server ticks");
+                    break;
+
+                case "timer":
+                    NbsPlayerPluginClass.Config.UseServerTicks = false;
+                    await Context.Client.SendChatAsync("§aTiming method set to timers");
+                    break;
             }
         }
     }

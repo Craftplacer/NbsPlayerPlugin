@@ -85,6 +85,12 @@ namespace NbsPlayerPlugin
             foreach (NoteBlock noteBlock in noteBlocks)
             {
                 var layer = noteBlock.Layer;
+
+                if (nbsFile.Layers.Length <= layer)
+                {
+                    continue;
+                }
+
                 nbsFile.Layers[layer].NoteBlocks.Add(noteBlock);
             }
             //the list is not used anymore
