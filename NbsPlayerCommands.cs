@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace NbsPlayerPlugin
 {
+    [Group("nbspp")]
     public class NbsPlayerCommands : ModuleBase<CommandContext>
     {
         public CommandService Service { get; set; }
