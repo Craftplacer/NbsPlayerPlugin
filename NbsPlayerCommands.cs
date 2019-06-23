@@ -13,7 +13,7 @@ namespace NbsPlayerPlugin
 
         [Command("play")]
         [Description("Plays back the specified song.")]
-        public async Task PlayAsync(string song)
+        public async Task PlayAsync([Remainder]string song)
         {
             NbsFile nbsFile = NbsFileReader.ReadNbsFile(song);
 
