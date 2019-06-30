@@ -4,6 +4,7 @@ using Obsidian.Chat;
 using Obsidian.Entities;
 using System;
 using System.Threading.Tasks;
+using System.Timers;
 
 namespace NbsPlayerPlugin
 {
@@ -50,5 +51,7 @@ namespace NbsPlayerPlugin
         public int LastTick { get; set; } = 0;
         public int TickStart { get; }
         public DateTime StartTime { get; }
+
+        public Timer Timer { get; set; }
     }
 }

@@ -24,8 +24,10 @@ namespace NbsPlayerPlugin
 
             string path = Path.Combine(Context.Server.Path, "songs", song);
 
+            if (!File.Exists(path))
             {
-                await Context.Player.SendMessageAsync($"{Constants.Prefix}Playing {song}");
+                await Context.Player.SendMessageAsync($"§cCan't play {song} as the file doesn't exists.");
+                return;
             }
 
             NbsFile nbsFile = NbsFileReader.ReadNbsFile(path);
@@ -67,7 +69,7 @@ namespace NbsPlayerPlugin
         {
             try
             {
-                await NbsPlayerPluginClass.StopTaskAsync(Context.Player.Username);
+                await NbsPlayerPluginClass.StopTaskAsync(Context.Player);
                 await Context.Player.SendMessageAsync($"§aStopped playing");
             }
             catch
