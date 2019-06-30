@@ -23,21 +23,14 @@ namespace NbsPlayerPlugin
             }
 
             string path = Path.Combine(Context.Server.Path, "songs", song);
-            NbsFile nbsFile = NbsFileReader.ReadNbsFile(path);
 
-            bool songNameSpecified = !string.IsNullOrWhiteSpace(nbsFile.SongName);
-            bool songAuthorSpecified = !string.IsNullOrWhiteSpace(nbsFile.OriginalSongAuthor);
-
-            if (songNameSpecified || songAuthorSpecified)
-            {
-                string songName = songNameSpecified ? nbsFile.SongName : "Unknown";
-                string songAuthor = songAuthorSpecified ? nbsFile.OriginalSongAuthor : "Unknown";
-                await Context.Player.SendMessageAsync($"{Constants.Prefix}Playing {songAuthor} - {songName}");
-            }
-            else
             {
                 await Context.Player.SendMessageAsync($"{Constants.Prefix}Playing {song}");
             }
+
+            NbsFile nbsFile = NbsFileReader.ReadNbsFile(path);
+
+            await Context.Player.SendMessageAsync($"§aPlaying {nbsFile.GetLabel()}");
 
             PlayerTask task;
 

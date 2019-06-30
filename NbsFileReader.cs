@@ -114,7 +114,11 @@ namespace NbsPlayerPlugin
             using (var fileStream = File.OpenRead(path))
             using (var binaryReader = new BinaryReader(fileStream))
             {
-                var nbsFile = new NbsFile();
+                var nbsFile = new NbsFile
+                {
+                    FileName = Path.GetFileNameWithoutExtension(path)
+                };
+
                 ReadNbsHeader(nbsFile, binaryReader);
                 ReadNbsNoteBlocks(nbsFile, binaryReader);
                 ReadNbsLayers(nbsFile, binaryReader);
