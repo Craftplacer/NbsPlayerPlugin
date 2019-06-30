@@ -2,8 +2,6 @@
 {
     public static class Constants
     {
-        public const string Prefix = "§a";
-
         public static readonly string[] InstrumentValues = new string[]
         {
             "block.note_block.harp", //dirt, harp

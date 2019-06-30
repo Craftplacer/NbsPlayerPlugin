@@ -32,7 +32,7 @@ namespace NbsPlayerPlugin
             await this.Player.SendBossBarAsync(NbsPlayerPluginClass.BossBarId, new BossBarAddAction()
             {
                 Color = BossBarColor.Green,
-                Title = ChatMessage.Simple(this.NBS.SongName),
+                Title = ChatMessage.Simple("§a" + this.NBS.GetLabel()),
                 Health = 0f,
                 Division = BossBarDivisionType.None,
                 Flags = BossBarFlags.None

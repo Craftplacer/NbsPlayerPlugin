@@ -53,11 +53,11 @@ namespace NbsPlayerPlugin
             try
             {
                 await NbsPlayerPluginClass.StopTaskAsync(Context.Player.Username);
-                await Context.Player.SendMessageAsync($"{Constants.Prefix}Stopped playing");
+                await Context.Player.SendMessageAsync($"§aStopped playing");
             }
             catch
             {
-                await Context.Player.SendMessageAsync($"{Constants.Prefix}You aren't playing a song right now.");
+                await Context.Player.SendMessageAsync($"§aYou aren't playing a song right now.");
             }
         }
 
