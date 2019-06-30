@@ -17,6 +17,49 @@
             //108, //???, pling
         };
 
+        public static readonly char[] ColorValues = new char[]
+        {
+            '9', //dirt, harp
+            'a', //wood, bass / double bass
+            'c',
+            'e',
+            'd', //glass, click / hat
+            '4', //wool, guitar
+            '6', //clay, flute
+            '5', //gold block, bell
+            '3', //packed ice, chime
+            '7', //bone block, xylophone
+        };
+
+        public static readonly string[] NoteValues = new string[]
+        {
+            "F#3",
+            "G3",
+            "G#3",
+            "A3",
+            "A#3",
+            "B3",
+            "C4",
+            "C#4",
+            "D4",
+            "D#4",
+            "E4",
+            "F4",
+            "F#4",
+            "G4",
+            "G#4",
+            "A4",
+            "A#4",
+            "B4",
+            "C5",
+            "C#5",
+            "D5",
+            "D#5",
+            "E5",
+            "F5",
+            "F#5"
+        };
+
         public static readonly float[] PitchValues = new float[]
         {
             0.5f,

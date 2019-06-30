@@ -126,8 +126,19 @@ namespace NbsPlayerPlugin
                     await UpdateBossBarAsync(task);
                 }
                 catch
+                string msg = "";
+
+                //if (noteBlocks.Count == 0)
+                //{
+                //    msg += $"§0---";
+                //}
                 {
                     await StopTaskAsync(task.Player.Username);
+                    msg += $"§{Constants.ColorValues[noteBlock.Instrument]}{Constants.NoteValues[noteBlock.Key - 33]} ";
+                }
+                if (!string.IsNullOrWhiteSpace(msg))
+                {
+                    await task.Player.SendMessageAsync(msg, 2);
                 }
             }
         }
