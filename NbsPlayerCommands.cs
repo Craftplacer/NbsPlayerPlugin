@@ -46,6 +46,21 @@ namespace NbsPlayerPlugin
             NbsPlayerPluginClass.Tasks.Add(task);
         }
 
+        [Command("list")]
+        [Description("Lists all .NBS files available to play on this server")]
+        public async Task ListAsync()
+        {
+            await Context.Player.SendMessageAsync($"§2--- Showing available songs ---");
+
+            foreach (string nbsPath in Directory.GetFiles(Path.Combine(Context.Server.Path, "songs"), "*.nbs"))
+            {
+                NbsFile nbsFile = NbsFileReader.ReadNbsFile(nbsPath);
+                await Context.Player.SendMessageAsync($"§a{nbsFile.GetLabel()} ({nbsFile.FileName})");
+            }
+
+            await Context.Player.SendMessageAsync($"§2-------------------------------");
+        }
+
         [Command("stop")]
         [Description("Stops the currently playing song")]
         public async Task StopAsync()
